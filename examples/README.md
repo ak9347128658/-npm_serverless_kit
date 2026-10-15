@@ -4,7 +4,7 @@ Each folder is a service you can validate from that directory. The handler is th
 
 ```bash
 cd examples/http-javascript
-npx serverless-kit validate
+npx node_serverless_kit validate
 ```
 
 From a checkout, build first (`npm run build`) or run the CLI with `npx tsx src/cli.ts validate`.
@@ -21,7 +21,7 @@ sk invoke hello --type http --path /hello
 
 ## http-typescript
 
-The same route. `src/handler.ts` exports `handler`. esbuild strips the types. After you install the library, you can import `KitEvent` and `KitResult` from `serverless-kit` instead of declaring them inline. See [docs/handlers.md](../docs/handlers.md).
+The same route. `src/handler.ts` exports `handler`. esbuild strips the types. After you install the library, you can import `KitEvent` and `KitResult` from `node_serverless_kit` instead of declaring them inline. See [docs/handlers.md](../docs/handlers.md).
 
 ## schedule
 

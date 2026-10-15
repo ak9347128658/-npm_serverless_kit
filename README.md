@@ -5,7 +5,7 @@ One Node.js or TypeScript handler. A YAML file that says which cloud and which e
 Move from AWS Lambda and Step Functions to another cloud by editing the YAML. The handler stays the same. `sk deploy` bundles the code, writes Terraform, applies it, and writes a dashboard of every deployed function.
 
 ```bash
-npm install -g serverless-kit
+npm install -g node_serverless_kit
 sk init my-service
 cd my-service
 sk deploy
@@ -109,7 +109,7 @@ sk workflow checkout --data '{"sku":"sku-1"}'
 ## Handler contract
 
 ```ts
-import type { KitEvent, KitResult, KitContext } from "serverless-kit";
+import type { KitEvent, KitResult, KitContext } from "node_serverless_kit";
 
 export async function handler(event: KitEvent, context: KitContext): Promise<KitResult> {
   return { statusCode: 200, body: { ok: true, type: event.type } };

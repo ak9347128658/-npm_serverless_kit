@@ -22,7 +22,7 @@ exports.handler = async function handler(event, context) {
 `src/handler.ts`:
 
 ```ts
-import type { KitEvent, KitResult, KitContext } from "serverless-kit";
+import type { KitEvent, KitResult, KitContext } from "node_serverless_kit";
 
 export async function handler(event: KitEvent, context: KitContext): Promise<KitResult> {
   return {
@@ -32,7 +32,7 @@ export async function handler(event: KitEvent, context: KitContext): Promise<Kit
 }
 ```
 
-Install `serverless-kit` in the service (or depend on a workspace build) so TypeScript can see those types. esbuild strips the types at package time. You do not ship `typescript` to the cloud.
+Install `node_serverless_kit` in the service (or depend on a workspace build) so TypeScript can see those types. esbuild strips the types at package time. You do not ship `typescript` to the cloud.
 
 A default export works when the YAML name matches it or when the named export is missing and `default` is a function:
 

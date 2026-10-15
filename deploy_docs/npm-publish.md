@@ -1,8 +1,8 @@
 # Publish serverless-kit to npm
 
-This is the release checklist for the `serverless-kit` package. Do it from a clean clone. The `prepublishOnly` script runs `npm run build` and `npm test` before the tarball is packed.
+This is the release checklist for the `node_serverless_kit` package. Do it from a clean clone. The `prepublishOnly` script runs `npm run build` and `npm test` before the tarball is packed.
 
-The package author in `package.json` is Asif Khan @ Kavion.ai. The package name is `serverless-kit`. If that name is already taken on the registry, publish under a scope you control (`@your-org/serverless-kit`) and change `name` before the first release. Do not publish over someone else's package.
+The package author in `package.json` is Asif Khan @ Kavion.ai. The npm name is `node_serverless_kit`. The unscoped name `serverless-kit` belongs to another account, so this package does not use it. The installed commands are still `sk` and `serverless-kit`.
 
 ## 1. Accounts and access
 
@@ -77,7 +77,7 @@ Then write the tarball without publishing:
 npm pack
 ```
 
-That creates `serverless-kit-<version>.tgz`. Open it if you want to see the exact bytes. Delete the tarball after you publish so it is not committed.
+That creates `node_serverless_kit-<version>.tgz`. Open it if you want to see the exact bytes. Delete the tarball after you publish so it is not committed.
 
 ## 7. Log in
 
@@ -119,14 +119,14 @@ The workflow must have `id-token: write` and `contents: read`. The release workf
 ## 9. Confirm
 
 ```bash
-npm view serverless-kit version
-npm view serverless-kit dist.tarball
+npm view node_serverless_kit version
+npm view node_serverless_kit dist.tarball
 ```
 
 In an empty directory:
 
 ```bash
-npm install serverless-kit
+npm install node_serverless_kit
 npx sk --version
 npx sk init .
 ```
@@ -155,9 +155,9 @@ Push only when you mean to. The tag should point at the commit that matches the 
 Tags:
 
 - `latest` is the default dist-tag.
-- A breaking pre-release: `npm publish --tag next`, then `npm dist-tag add serverless-kit@x.y.z latest` when you are ready.
+- A breaking pre-release: `npm publish --tag next`, then `npm dist-tag add node_serverless_kit@x.y.z latest` when you are ready.
 
-Unpublishing is limited. npm lets you unpublish within 72 hours if nothing else depends on the version, and the name stays reserved. Prefer `npm deprecate serverless-kit@0.1.0 "message"` over unpublish.
+Unpublishing is limited. npm lets you unpublish within 72 hours if nothing else depends on the version, and the name stays reserved. Prefer `npm deprecate node_serverless_kit@0.1.0 "message"` over unpublish.
 
 ## 12. Do not publish
 

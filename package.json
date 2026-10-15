@@ -1,11 +1,11 @@
 {
-  "name": "serverless-kit",
+  "name": "node_serverless_kit",
   "version": "0.1.0",
   "description": "Multi-cloud serverless framework. One Node.js or TypeScript handler, a YAML trigger file, and Terraform under the hood for AWS, Google Cloud, Azure, Cloudflare, Alibaba Cloud, IBM Cloud, Oracle Cloud, Tencent Cloud, Huawei Cloud, and DigitalOcean.",
   "type": "module",
   "bin": {
-    "serverless-kit": "./dist/cli.js",
-    "sk": "./dist/cli.js"
+    "serverless-kit": "dist/cli.js",
+    "sk": "dist/cli.js"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -64,6 +64,6 @@
   "author": "Asif Khan @ Kavion.ai",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/example/serverless-kit.git"
+    "url": "git+https://github.com/ak9347128658/-npm_serverless_kit.git"
   }
 }

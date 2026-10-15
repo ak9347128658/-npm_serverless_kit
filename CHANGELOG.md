@@ -2,7 +2,7 @@
 
 ## 0.1.0
 
-First release of serverless-kit. Author: Asif Khan @ Kavion.ai.
+First release of serverless-kit, published as `node_serverless_kit`. Author: Asif Khan @ Kavion.ai.
 
 - YAML config for AWS, Google Cloud, Azure, Cloudflare, Alibaba Cloud, IBM Cloud, Oracle Cloud, Tencent Cloud, Huawei Cloud, and DigitalOcean.
 - One JavaScript or TypeScript handler. A bundled adapter normalizes each cloud payload.
