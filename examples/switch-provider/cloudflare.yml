@@ -1,0 +1,19 @@
+service: hello
+framework: serverless-kit
+
+provider:
+  name: cloudflare
+  runtime: nodejs20
+  stage: dev
+  cloudflare:
+    accountId: replace-with-account-id
+    workersDevSubdomain: replace-with-subdomain
+
+functions:
+  hello:
+    handler: src/handler.handler
+    description: Same handler on every cloud
+    events:
+      - http:
+          path: /hello
+          method: get

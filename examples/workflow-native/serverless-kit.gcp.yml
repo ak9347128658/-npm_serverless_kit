@@ -1,0 +1,39 @@
+service: orders
+framework: serverless-kit
+
+provider:
+  name: gcp
+  runtime: nodejs20
+  region: us-central1
+  stage: dev
+  gcp:
+    project: demo-project
+
+functions:
+  reserve:
+    handler: src/reserve.handler
+    events:
+      - http:
+          path: /reserve
+          method: post
+  charge:
+    handler: src/charge.handler
+    events:
+      - http:
+          path: /charge
+          method: post
+
+workflows:
+  checkout:
+    engine: native
+    comment: Same states. Google Cloud Workflows calls each function with OIDC.
+    startAt: Reserve
+    states:
+      Reserve:
+        type: task
+        function: reserve
+        next: Charge
+      Charge:
+        type: task
+        function: charge
+        end: true

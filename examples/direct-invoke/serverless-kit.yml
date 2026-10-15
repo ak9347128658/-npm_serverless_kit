@@ -1,0 +1,14 @@
+service: invoke
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  ping:
+    handler: src/handler.handler
+    description: No public trigger. Call it by ARN or the cloud invoke API.
+    events: []

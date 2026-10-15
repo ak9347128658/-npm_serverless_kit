@@ -1,0 +1,22 @@
+service: shop
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  worker:
+    handler: src/handler.handler
+    description: One handler, three triggers
+    events:
+      - http:
+          path: /work
+          method: post
+      - schedule:
+          expression: cron(0 12 * * ? *)
+      - queue:
+          name: jobs
+          create: true

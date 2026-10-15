@@ -1,0 +1,18 @@
+service: hello
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  hello:
+    handler: src/handler.handler
+    description: Same handler on every cloud
+    events:
+      - http:
+          path: /hello
+          method: get
+          cors: true

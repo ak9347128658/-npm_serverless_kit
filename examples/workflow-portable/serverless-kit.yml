@@ -1,0 +1,43 @@
+service: orders
+framework: serverless-kit
+
+provider:
+  name: azure
+  runtime: nodejs20
+  region: eastus
+  stage: dev
+
+functions:
+  reserve:
+    handler: src/reserve.handler
+    events:
+      - http:
+          path: /reserve
+          method: post
+  charge:
+    handler: src/charge.handler
+    events:
+      - http:
+          path: /charge
+          method: post
+
+workflows:
+  checkout:
+    engine: portable
+    comment: The kit runner calls each function over HTTP. Waits stay at or under 10 seconds.
+    startAt: Reserve
+    states:
+      Reserve:
+        type: task
+        function: reserve
+        next: Pause
+      Pause:
+        type: wait
+        seconds: 2
+        next: Charge
+      Charge:
+        type: task
+        function: charge
+        next: Done
+      Done:
+        type: succeed

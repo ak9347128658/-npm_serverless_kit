@@ -1,0 +1,56 @@
+service: orders
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  reserve:
+    handler: src/reserve.handler
+    events:
+      - http:
+          path: /reserve
+          method: post
+  charge:
+    handler: src/charge.handler
+    events:
+      - http:
+          path: /charge
+          method: post
+
+workflows:
+  checkout:
+    engine: native
+    type: STANDARD
+    comment: Reserve stock, then charge, with a retry
+    startAt: Reserve
+    states:
+      Reserve:
+        type: task
+        function: reserve
+        next: Charge
+        retry:
+          - errors: [States.ALL]
+            intervalSeconds: 2
+            maxAttempts: 2
+            backoffRate: 2
+      Charge:
+        type: task
+        function: charge
+        next: Paid
+      Paid:
+        type: choice
+        choices:
+          - variable: $.paid
+            booleanEquals: true
+            next: Done
+        default: Failed
+      Done:
+        type: succeed
+      Failed:
+        type: fail
+        error: PaymentFailed
+        cause: charge returned paid=false

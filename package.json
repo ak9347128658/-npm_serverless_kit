@@ -1,0 +1,69 @@
+{
+  "name": "serverless-kit",
+  "version": "0.1.0",
+  "description": "Multi-cloud serverless framework. One Node.js or TypeScript handler, a YAML trigger file, and Terraform under the hood for AWS, Google Cloud, Azure, Cloudflare, Alibaba Cloud, IBM Cloud, Oracle Cloud, Tencent Cloud, Huawei Cloud, and DigitalOcean.",
+  "type": "module",
+  "bin": {
+    "serverless-kit": "./dist/cli.js",
+    "sk": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./runtime": {
+      "types": "./dist/runtime/index.d.ts",
+      "import": "./dist/runtime/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "examples",
+    "deploy_docs",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test test/bundle.test.ts test/config.test.ts test/examples.test.ts test/normalize.test.ts test/plan.test.ts test/schedule.test.ts test/terraform.test.ts test/ui.test.ts test/workflow.test.ts test/zip.test.ts",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "esbuild": "^0.25.0",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.13.10",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "keywords": [
+    "serverless",
+    "terraform",
+    "lambda",
+    "multi-cloud",
+    "step-functions",
+    "azure-functions",
+    "cloud-functions",
+    "cloudflare-workers"
+  ],
+  "license": "Apache-2.0",
+  "author": "Asif Khan @ Kavion.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/example/serverless-kit.git"
+  }
+}

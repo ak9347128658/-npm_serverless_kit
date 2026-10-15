@@ -1,0 +1,18 @@
+service: streams
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  onStream:
+    handler: src/handler.handler
+    description: Kinesis or DynamoDB stream. AWS only.
+    events:
+      - stream:
+          arn: arn:aws:kinesis:us-east-1:123456789012:stream/orders
+          batchSize: 100
+          startingPosition: LATEST

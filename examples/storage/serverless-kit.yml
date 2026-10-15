@@ -1,0 +1,19 @@
+service: uploads
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  onObject:
+    handler: src/handler.handler
+    description: Runs when a JSON object is created
+    events:
+      - storage:
+          bucket: uploads
+          events: [created]
+          suffix: .json
+          create: true

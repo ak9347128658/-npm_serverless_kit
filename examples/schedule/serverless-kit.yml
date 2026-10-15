@@ -1,0 +1,18 @@
+service: ticks
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  tick:
+    handler: src/handler.handler
+    description: Runs every five minutes
+    events:
+      - schedule:
+          expression: rate(5 minutes)
+          timezone: UTC
+          description: five minute tick

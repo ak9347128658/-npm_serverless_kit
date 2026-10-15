@@ -1,0 +1,18 @@
+service: jobs
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  worker:
+    handler: src/handler.handler
+    description: Consumes the jobs queue
+    events:
+      - queue:
+          name: jobs
+          batchSize: 10
+          create: true

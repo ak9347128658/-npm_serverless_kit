@@ -1,0 +1,17 @@
+service: news
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  fanout:
+    handler: src/handler.handler
+    description: Receives published orders
+    events:
+      - topic:
+          name: orders
+          create: true

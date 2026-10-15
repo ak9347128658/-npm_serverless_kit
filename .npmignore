@@ -1,0 +1,9 @@
+src/
+test/
+.github/
+.serverless-kit/
+node_modules/
+*.tsbuildinfo
+tsconfig.json
+.gitignore
+.npmignore

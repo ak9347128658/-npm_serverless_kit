@@ -1,0 +1,20 @@
+service: hello
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+  memory: 256
+  timeout: 10
+
+functions:
+  hello:
+    handler: src/handler.handler
+    description: HTTP hello in JavaScript
+    events:
+      - http:
+          path: /hello
+          method: get
+          cors: true

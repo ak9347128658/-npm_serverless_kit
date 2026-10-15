@@ -1,0 +1,17 @@
+service: hello
+framework: serverless-kit
+
+provider:
+  name: alibaba
+  runtime: nodejs20
+  region: cn-hangzhou
+  stage: dev
+
+functions:
+  hello:
+    handler: src/handler.handler
+    description: Same handler on every cloud
+    events:
+      - http:
+          path: /hello
+          method: get

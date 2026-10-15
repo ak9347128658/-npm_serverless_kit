@@ -1,0 +1,17 @@
+service: hello
+framework: serverless-kit
+
+provider:
+  name: azure
+  runtime: nodejs20
+  region: eastus
+  stage: dev
+
+functions:
+  hello:
+    handler: src/handler.handler
+    description: Same handler on every cloud
+    events:
+      - http:
+          path: /hello
+          method: get

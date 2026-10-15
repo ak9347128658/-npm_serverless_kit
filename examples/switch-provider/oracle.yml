@@ -1,0 +1,21 @@
+service: hello
+framework: serverless-kit
+
+provider:
+  name: oracle
+  runtime: nodejs20
+  region: us-ashburn-1
+  stage: dev
+  oracle:
+    compartmentId: ocid1.compartment.oc1..example
+    subnetIds:
+      - ocid1.subnet.oc1..example
+
+functions:
+  hello:
+    handler: src/handler.handler
+    description: Same handler on every cloud
+    events:
+      - http:
+          path: /hello
+          method: get

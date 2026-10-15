@@ -1,0 +1,19 @@
+service: hello
+framework: serverless-kit
+
+provider:
+  name: huawei
+  runtime: nodejs20
+  region: cn-north-4
+  stage: dev
+  huawei:
+    agency: kit-agency
+
+functions:
+  hello:
+    handler: src/handler.handler
+    description: Same handler on every cloud
+    events:
+      - http:
+          path: /hello
+          method: get

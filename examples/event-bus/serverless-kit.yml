@@ -1,0 +1,18 @@
+service: bus
+framework: serverless-kit
+
+provider:
+  name: aws
+  runtime: nodejs20
+  region: us-east-1
+  stage: dev
+
+functions:
+  onOrder:
+    handler: src/handler.handler
+    description: EventBridge order events
+    events:
+      - event:
+          bus: default
+          source: shop.orders
+          detailType: OrderPlaced

@@ -1,0 +1,19 @@
+service: hello
+framework: serverless-kit
+
+provider:
+  name: ibm
+  runtime: nodejs20
+  region: us-south
+  stage: dev
+  ibm:
+    namespace: replace-with-namespace
+
+functions:
+  hello:
+    handler: src/handler.handler
+    description: Same handler on every cloud
+    events:
+      - http:
+          path: /hello
+          method: get
