@@ -7,9 +7,16 @@ The package author in `package.json` is Asif Khan @ Kavion.ai. The npm name is `
 ## 1. Accounts and access
 
 1. Create an npm user at https://www.npmjs.com/signup if you do not have one.
-2. Enable two-factor authentication on the account. npm requires 2FA for publishes.
-3. If the package is scoped and public, you will pass `--access public`. Unscoped packages are public by default.
-4. If an organization owns the scope, an owner must grant you publish rights.
+2. Enable two-factor authentication before the first publish. npm rejects `npm publish` with `403 Forbidden` and this message when the account has no 2FA and the current login cannot bypass it:
+
+   `Two-factor authentication or granular access token with bypass 2fa enabled is required to publish packages.`
+
+   A free package name does not change this. The same 403 is an account check, not a name collision.
+
+3. On https://www.npmjs.com sign in, open the profile picture, then **Account**. Under **Two-Factor Authentication**, click **Enable 2FA**. Add a security key. Windows Hello, Touch ID, Face ID, and a hardware key such as a YubiKey all work.
+4. Leave the mode on **Authorization and writes**. That mode asks for the second factor on `npm publish`. **Authorization only** covers login and account changes, and a publish from that mode still fails.
+5. If the package is scoped and public, you will pass `--access public`. Unscoped packages, including `node_serverless_kit`, are public by default.
+6. If an organization owns the scope, an owner must grant you publish rights.
 
 ## 2. Machine
 
@@ -81,18 +88,39 @@ That creates `node_serverless_kit-<version>.tgz`. Open it if you want to see the
 
 ## 7. Log in
 
+Interactive publish is the normal path. Log out first when 2FA was turned on after the last login. A session from before that change still gets the 403 in section 1.
+
 ```bash
+npm logout
 npm login
 npm whoami
 ```
 
-On an automation token:
+`npm login` opens a browser. Complete that login as the account that will own `node_serverless_kit`.
+
+Non-interactive publish uses a granular access token:
+
+1. On npm, open the profile picture, then **Access Tokens**, then **Generate New Token**.
+2. Check **Bypass two-factor authentication**.
+3. Under packages and scopes, choose **Read and write (publish and stage)**. **Read and write (stage only)** cannot run `npm publish`.
+4. Choose **All packages**. A package that is not on the registry yet does not appear in the package picker, so a token limited to selected packages cannot create `node_serverless_kit`.
+5. Copy the token once. Do not commit it. Do not put it in the repository, in CI logs, or in generated Terraform.
 
 ```bash
+npm logout
 npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+npm whoami
 ```
 
-Prefer a granular access token with publish permission for this package only. Do not commit the token. Do not put it in the repository or in generated Terraform.
+On PowerShell:
+
+```powershell
+npm logout
+npm config set "//registry.npmjs.org/:_authToken" "$env:NPM_TOKEN"
+npm whoami
+```
+
+After a successful publish, run `npm logout` so the token is not left in the npm config. Bypass-2FA tokens can still publish directly. npm plans to remove that in January 2027. For a release from your own machine, use the interactive login above.
 
 ## 8. Publish
 
@@ -106,7 +134,9 @@ For a scoped public package:
 npm publish --access public
 ```
 
-npm will ask for a one-time password if the account uses 2FA. `prepublishOnly` builds and tests again. If tests fail, nothing is uploaded.
+When the account uses **Authorization and writes**, npm asks you to approve with the security key during publish. Approve that prompt. `prepublishOnly` builds and tests again. If tests fail, nothing is uploaded.
+
+If publish returns the 403 from section 1, the registry rejected the credentials. Enable 2FA and log in again, or use a granular token from section 7. Do not bump the version for that error. `0.1.0` is valid the first time this name is published.
 
 Provenance (optional, from a public GitHub Actions run):
 
